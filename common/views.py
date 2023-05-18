@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 
+app_name = 'common'
 
-
-def cost(request):
-    return JsonResponse({'voda': 47, 'vosk': 50, 'pena': 60, 'actpena': 100})
+def home_view(request):
+    return render(request, 'index.html')
 
