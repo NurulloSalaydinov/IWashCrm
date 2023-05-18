@@ -1,8 +1,8 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from common.views import cost
 
 urlpatterns = [
-    path('', cost, name='cost'),
+    path('', include('common.urls', namespace='common')),
     path('admin/', admin.site.urls),
 ]
