@@ -49,4 +49,15 @@ class TakenMoney(models.Model):
         return f"{self.created_at} {self.amount}"
 
 
+class Info(models.Model):
+    water = models.PositiveIntegerField(default=27)
+    wax = models.PositiveIntegerField(default=50)
+    pena = models.PositiveIntegerField(default=82)
+    active_pena = models.PositiveIntegerField(default=109)
+    cashback_percent = models.PositiveIntegerField(default=10)
+    cashback_use = models.PositiveIntegerField(default=5000)
+
+    def __str__(self):
+        return f"Narxlar ma'lumoti: {self.id}"
+
 
