@@ -1,6 +1,6 @@
 {% extends 'base.html '%}
 {% block content %}
-<div class="container px-6 mx-auto grid">
+<div class="container px-6 mx-auto grid" onclick="line_chart({{date}}, {{value}})"> 
   <h2 class="my-6 text-4xl font-semibold text-gray-700 dark:text-gray-200">
     Hisobot
   </h2>
@@ -21,7 +21,6 @@
     </div>
   </div>
 </div>
-
 {% endblock %}
 
 
