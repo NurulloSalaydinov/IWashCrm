@@ -8,6 +8,9 @@ class Box(models.Model):
     cash = models.PositiveIntegerField(default=0)
     on = models.BooleanField(default=True)
 
+    def get_incomes(self):
+        return Income.objects.filter(box=self)
+
     def __str__(self):
         return f"{self.title}"
 
