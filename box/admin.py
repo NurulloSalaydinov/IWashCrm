@@ -1,3 +1,6 @@
 from django.contrib import admin
-
-# Register your models here.
+from .models import Box, Income,TakenMoney
+# Register your models here.x
+admin.site.register(Box)
+admin.site.register(Income)
+admin.site.register(TakenMoney)

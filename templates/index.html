@@ -87,23 +87,26 @@
     Qurilmalar
   </h2>
 
-  <div class="grid gap-6 mb-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-    <div
+  <div class="grid gap-6 mb-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
+    
+    {% for box in boxes  %}
+      <div
       class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
     >
       <center>
         <br>
-        <h1 class="text-4xl text-green-500">BOX</h1>
+        <h1 class="text-4xl text-green-500">{{box.title}}</h1>
       </center>
       <br>
+      <h2 class="text-2xl ml-[30px]">Songi amallar</h2>
       <ul class="m-5 text-2xl">
-        <li class="m-1 dark:text-white"><strong class="text-purple-600">Kunlik tushum:</strong> 150min</li>
-        <li class="m-1 dark:text-white"><strong class="text-purple-600">Oylik tushum:</strong> 1mln</li>
-        <li class="m-1 dark:text-white"><strong class="text-purple-600">Mavjud summa:</strong> 10min </li>
+        <li class="m-1 dark:text-white"><strong class="text-purple-600">Kunlik tushum:</strong> {{box.income.last.amount}} </li>
+        <li class="m-1 dark:text-white"><strong class="text-purple-600">Pul yechildi:</strong> {{box.takemoney.last.amount}}</li>
+        <li class="m-1 dark:text-white"><strong class="text-purple-600">qurilmadagi summa:</strong> {{box.cash}} </li>
       </ul>
       <br>
       <div class="flex flex-row justify-between flex-wrap mb-8 space-y-4 md:flex-row md:items-end md:space-x-4">
-        <a href="" class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+        <a href="{% url 'common:chart' box.token %}" class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
           <span>Statistika</span>
           <svg class="w-5 h-5 ml-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
             <path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
@@ -117,6 +120,8 @@
           </a>
       </div>
     </div>
+    {% endfor %}
+      
   </div>
 </div>
 
