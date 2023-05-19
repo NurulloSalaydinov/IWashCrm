@@ -37,14 +37,14 @@ class CashBack(models.Model):
 class Income(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     amount = models.PositiveIntegerField(default=0)
-    box = models.ForeignKey(Box, on_delete=models.SET_NULL, null=True, blank=True)
+    box = models.ForeignKey(Box, on_delete=models.SET_NULL, null=True, blank=True, related_name='income', related_query_name='income')
 
     def __str__(self):
         return f"{self.amount}"
 
 
 class TakenMoney(models.Model):
-    box = models.ForeignKey(Box, on_delete=models.CASCADE)
+    box = models.ForeignKey(Box, on_delete=models.CASCADE, related_name='takemoney', related_query_name='takemoney')
     amount = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
