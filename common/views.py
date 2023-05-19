@@ -21,8 +21,9 @@ def chart_box(request, token):
     for i in income:
         date.append(f"{month[i.created_at.month]} {i.created_at.day}")
         value.append(i.amount)
-    
-    print(date, value)
+
+    print(date)
+    print(value)
     context = {
         'box': box,
         'date' : date,
