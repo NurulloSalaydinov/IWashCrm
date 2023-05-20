@@ -3,7 +3,11 @@ from django.shortcuts import render
 
 from django.utils import timezone
 
+from django.contrib import messages
+
 from .models import Box, Customer, Info, Income
+
+from .forms import InfoForm
 
 
 def get_info():
@@ -92,4 +96,15 @@ def receive_money(request):
         print(f"Box does not exist {e}")
         return JsonResponse({"error": "Invalid token"}, status=500)
 
- 
+
+def update_info(request):
+    info = get_info()
+    if request.method == "POST":
+        form = InfoForm(request.POST, instance=info)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Narxlar o'zgartirildi")
+    context = {
+        'info': info,
+    }
+    return render(request, 'update_info.html', context)
