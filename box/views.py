@@ -13,13 +13,13 @@ def get_info():
 
 def get_today_income() -> Income:
     try:
-        income = Income.objects.get(created_at__date=timezone.now().date())
+        income = Income.objects.get(created_at__date=timezone.now().date(), box=None)
     except Income.DoesNotExist as e:
-        print("Couldn't find %" % e)
-        income = Income.objects.create(created_at__date=timezone.now().date)
+        print(f"Box does not exist {e}")
+        income = Income.objects.create(box=None)
     except Income.MultipleObjectsReturned as e:
-        print("Multiple objects returned %" % e)
-        income_list = list(Income.objects.filter(created_at__date=timezone.now().date).order_by('-id'))
+        print(f"Box does not exist {e}")
+        income_list = list(Income.objects.filter(created_at__date=timezone.now().date(), box=None).order_by('-id'))
         for i in range(0,income_list.count()):
             income_list[i].delete()
     return income
@@ -27,13 +27,13 @@ def get_today_income() -> Income:
 
 def get_today_income_box(token: str) -> Income:
     try:
-        income = Income.objects.get(created_at__date=timezone.now().date, box__token=token)
+        income = Income.objects.get(created_at__date=timezone.now().date(), box__token=token)
     except Income.DoesNotExist as e:
-        print("Couldn't find %" % e)
-        income = Income.objects.create(created_at__date=timezone.now().date, box__token=token)
+        print(f"Box does not exist {e}")
+        income = Income.objects.create(box=Box.objects.get(token=token))
     except Income.MultipleObjectsReturned as e:
-        print("Multiple object returned %" % e)
-        income_list = list(Income.objects.filter(created_at__date=timezone.now().date, box__token=token).order_by('-id'))
+        print(f"Box does not exist {e}")
+        income_list = list(Income.objects.filter(created_at__date=timezone.now().date(), box__token=token).order_by('-id'))
         for i in range(0,income_list.count()):
             income_list[i].delete()
     return income
@@ -42,7 +42,7 @@ def get_today_income_box(token: str) -> Income:
 def receive_money(request):
     token = request.GET.get('token', None)
     customer_id = request.GET.get('customer_id', None)
-    amount = int(request.GET.get('amount', 0))
+    summ = int(request.GET.get('amount', 0))
     info = get_info()
     water, wax, pena, active_pena, cashback_use = info.water, info.wax, info.pena, info.active_pena, info.cashback_use
 
@@ -65,30 +65,31 @@ def receive_money(request):
                 customer = Customer.objects.get(turniket_id=customer_id)
             except Customer.DoesNotExist as e:
                 customer = Customer.objects.create(turniket_id=customer_id)
-            customer.cash_back += int(cashback_percent * amount / 100)
+            customer.cash_back += int((cashback_percent * summ) / 100)
             # today income add
             today_income = get_today_income()
-            today_income.amount += int(amount)
+            today_income.amount += summ
             today_income.save()
             # today income box add
             today_income_box = get_today_income_box(box.token)
-            today_income_box.amount += int(amount)
+            today_income_box.amount += summ
             today_income_box.save()
             customer.save()
             return JsonResponse(response)
         # else
+        # today income add
         today_income = get_today_income()
-        today_income.amount += int(amount)
+        today_income.amount += summ
         today_income.save()
         # today income box add
         today_income_box = get_today_income_box(box.token)
-        today_income_box.amount += int(amount)
+        today_income_box.amount += summ
         today_income_box.save()
         # return response
         return JsonResponse(response)
     except Box.DoesNotExist as e:
         # if box does not exist return error
-        print("Box does not exist %" % e)
-        return JsonResponse({"error": "Invalid token"}, status=0)
+        print(f"Box does not exist {e}")
+        return JsonResponse({"error": "Invalid token"}, status=500)
 
  
