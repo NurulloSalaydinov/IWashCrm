@@ -2,7 +2,7 @@
 {% block content %}
 <div class="container px-6 mx-auto grid">
   <h2 class="my-6 text-4xl font-semibold text-gray-700 dark:text-gray-200">
-    Hisobot
+    Hisobot <sub>( {{box.title}})</sub>
   </h2>
 
   <div class="grid gap-6 mb-8 md:grid-cols-2" onclick="">
@@ -26,27 +26,30 @@
 
 {% block codes %}
 <script>
-
-  const lineConfig = {
+ const lineConfig = {
   type: 'line',
   data: {
-    labels:{{ date| safe }},
+    labels: {{date|safe}},
     datasets: [
       {
-        label: 'Organic',
+        label: 'Tushdi',
+        /**
+         * These colors come from Tailwind CSS palette
+         * https://tailwindcss.com/docs/customizing-colors/#default-color-palette
+         */
         backgroundColor: '#0694a2',
         borderColor: '#0694a2',
         data: {{value|safe}},
         fill: false,
+        pointRadius: 5,
+        tension: 0.4,
+        hoverRadius: 10,
       },
     ],
   },
   options: {
     responsive: true,
-    /**
-     * Default legends are ugly and impossible to style.
-     * See examples in charts.html to add your own legends
-     *  */
+
     legend: {
       display: false,
     },
@@ -80,5 +83,6 @@
 // change this to the id of your chart element in HMTL
 const lineCtx = document.getElementById('line')
 window.myLine = new Chart(lineCtx, lineConfig)
+
 </script>
 {% endblock codes %}

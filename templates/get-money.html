@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container px-6 mx-auto grid">
+    <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+        Pul yechish
+    </h2>
+    <div class="grid gap-6 mb-8 md:grid-cols-2">
+        <div class="min-w-0  bg-white rounded-[20px] shadow-xs dark:bg-gray-800 rounded-3xl" style="background: url(/static/assets/img/water.jpg); background-size: contain;">
+            <div class="backdrop-blur-[4px] p-[30px] rounded-[20px]">
+                <br>    
+                <h4 class="mb-4 text-5xl  text-white font-black">
+                    Mavjud summa
+                </h4>
+                <br><br><br>
+                <h5 class="mb-4 text-6xl font-semibold text-white text-end  "> <span class="number">{{box.cash}}</span> so'm</h5>
+                <br>
+            </div>
+        </div>
+        <div class="min-w-0 p-4 bg-white p-[30px] rounded-[20px] rounded-lg shadow-xs dark:bg-gray-800">
+            <h4 class="mb-4 text-5xl text-red-600 font-black">
+                Ishonchiz komilmi ?
+            </h4>
+            <br>
+            <p class="dark:text-gray-300 text-2xl m-2"> 
+                Agar ushbu summani rostdan ham <strong>Box</strong>dan olgan bolsangiz unda buni tasdiqlang
+            </p>
+            <br><br><br>
+            <form action="" method="post">
+                {% csrf_token  %}
+                <div class="flex justify-end">
+                    <div>
+                        <a href="" class="px-5 mx-2 py-3 font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
+                            yo'q, ortga qaytish
+                        </a>
+                        <button type="submit" class="px-5 mx-2 py-3 font-medium leading-5 text-white transition-colors duration-150 bg-green-600 border border-transparent rounded-lg active:bg-green-600 hover:bg-green-700 focus:outline-none focus:shadow-outline-green">
+                            Ha, pul yechildi
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+{% block codes %}
+<script>
+    num = document.querySelectorAll('.number')
+    for (let i = 0; i < num.length; i++) {
+        num[i].innerText = String(num[i].innerText).replace(/(.)(?=(\d{3})+$)/g, '$1 ')
+    }
+</script>
+{% endblock codes %}

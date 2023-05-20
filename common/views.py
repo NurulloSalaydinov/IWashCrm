@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from box.models import Box, Income,TakenMoney
 from django.utils import timezone
+from django.contrib import messages
 
 
 app_name = 'common'
@@ -47,3 +48,21 @@ def chart_box(request, token):
         'value': value
     }
     return render(request, 'charts.html', context)
+
+def withdrop(request, token):
+    box = Box.objects.get(token = token)
+
+    if request.method == 'POST':
+        if box.cash != 0:
+            TakenMoney.objects.create(box=box, amount=box.cash)
+            box.cash = 0
+            box.save()
+            return redirect('common:home')
+        else:
+            messages.success(request, 'Qutiga pul yo\'q')
+            return redirect(request.path)
+
+    context = {
+        'box': box
+    }
+    return render(request, 'get-money.html', context)

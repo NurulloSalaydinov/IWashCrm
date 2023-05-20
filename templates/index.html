@@ -18,7 +18,7 @@
           Jami qutilar
         </p>
         <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-          {{box_count}} ta
+          <span class="number">{{box_count}}</span> ta
         </p>
       </div>
     </div>
@@ -36,7 +36,7 @@
           Kirim
         </p>
         <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-          {{incomes}} sum
+          <span class="number">{{incomes}} </span> so'm
         </p>
       </div>
     </div>
@@ -50,10 +50,10 @@
       </div>
       <div>
         <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-          Jami yechilgan summa
+          Jami yechilgan so'mma
         </p>
         <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-          {{takemoney}} sum
+          <span class="number">{{takemoney}}</span> so'm
         </p>
       </div>
     </div>
@@ -78,10 +78,10 @@
       <h2 class="text-2xl ml-[30px] dark:text-white">Songi amallar</h2>
       <ul class="m-5 text-2xl">
         <li class="m-1 dark:text-white"><strong class="text-purple-600">Kunlik tushum:</strong>
-          {{box.income.last.amount}} </li>
+          <span class="number">{{box.income.last.amount}}</span>  </li>
         <li class="m-1 dark:text-white"><strong class="text-purple-600">Pul yechildi:</strong>
-          {{box.takemoney.last.amount}}</li>
-        <li class="m-1 dark:text-white"><strong class="text-purple-600">qurilmadagi summa:</strong> {{box.cash}} </li>
+          <span class="number">{{box.takemoney.last.amount}}</span> </li>
+        <li class="m-1 dark:text-white"><strong class="text-purple-600">qurilmadagi so'mma:</strong> <span class="number">{{box.cash}}</span> </li>
       </ul>
       <br>
       <div class="flex flex-row justify-between flex-wrap mb-8 space-y-4 md:flex-row md:items-end md:space-x-4">
@@ -94,14 +94,10 @@
             <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
           </svg>
         </a>
-        <a href=""
-          class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-full active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-          aria-label="Edit">
-          <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
-            </path>
-          </svg>
+        <a href="{% url 'common:withdrop' box.token %}"
+          class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-purple">
+          <span>Pul yecish</span>
+          <i class="fa-solid fa-money-bill-transfer text-xl mx-1"></i>
         </a>
       </div>
     </div>
