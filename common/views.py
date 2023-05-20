@@ -1,14 +1,31 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from box.models import Box, Income,TakenMoney
+from django.utils import timezone
+
 
 app_name = 'common'
 
 def home_view(request):
     boxes = Box.objects.prefetch_related('takemoney', 'income').all()
+    incomes = Income.objects.filter(created_at__month = timezone.now().month)
+    takemoneys = TakenMoney.objects.filter(created_at__month = timezone.now().month)
+    
+    sum_income = 0
+    sum_takemoney = 0
+    for income in incomes:
+        sum_income += income.amount
+    
+    for takemoney in takemoneys:
+        sum_takemoney += takemoney.amount
+
     context = {
-        'boxes': boxes
+        'boxes': boxes,
+        'incomes': sum_income,
+        'takemoney': sum_takemoney,
+        'box_count': boxes.count()
     }
+
 
     return render(request, 'index.html', context)
 
