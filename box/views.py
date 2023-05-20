@@ -1,5 +1,6 @@
+from django.shortcuts import render, redirect
+
 from django.http import JsonResponse
-from django.shortcuts import render
 
 from django.utils import timezone
 
@@ -104,6 +105,7 @@ def update_info(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Narxlar o'zgartirildi")
+            return redirect('/')
     context = {
         'info': info,
     }

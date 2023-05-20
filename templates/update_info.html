@@ -1,19 +1,54 @@
 {% extends 'base.html '%}
 {% block content %}
 <div class="container px-6 mx-auto grid">
-  <h2 class="my-6 text-4xl font-semibold text-gray-700 dark:text-gray-200">
-    Sozlamalar
-  </h2>
+    <h2 class="my-6 text-4xl font-semibold text-gray-700 dark:text-gray-200">
+        Sozlamalar
+    </h2>
 
-  <div class="grid gap-1 mb-8">
-    <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-      <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
-        Pul Tafsiloti
-      </h4>
-      <div class="flex justify-center mt-4 space-x-3 text-sm text-gray-600 dark:text-gray-400">
-        
-      </div>
-    </div>
-  </div>
+    <form method="post" class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+        {% csrf_token %}
+        <label class="block text-sm mb-5">
+            <span class="text-gray-700 dark:text-gray-400">Suv narxi</span>
+            <input name="water" value="{{ info.water }}" required
+                class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                placeholder="Suv narxi">
+        </label>
+        <label class="block text-sm mb-5">
+            <span class="text-gray-700 dark:text-gray-400">Vosk narxi</span>
+            <input name="wax" value="{{ info.wax }}" required
+                class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                placeholder="Vosk narxi">
+        </label>
+        <label class="block text-sm mb-5">
+            <span class="text-gray-700 dark:text-gray-400">Pena narxi</span>
+            <input name="pena" value="{{ info.pena }}" required
+                class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                placeholder="Pena narxi">
+        </label>
+        <label class="block text-sm mb-5">
+            <span class="text-gray-700 dark:text-gray-400">Aktiv pena narxi</span>
+            <input name="active_pena" value="{{ info.active_pena }}" required
+                class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                placeholder="Aktiv pena narxi">
+        </label>
+        <label class="block text-sm mb-5">
+            <span class="text-gray-700 dark:text-gray-400">Keshbek foizi</span>
+            <input name="cashback_percent" value="{{ info.cashback_percent }}" required
+                class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                placeholder="Keshbek foizi">
+        </label>
+        <label class="block text-sm mb-5">
+            <span class="text-gray-700 dark:text-gray-400">Keshbek summasi</span>
+            <input name="cashback_use" value="{{ info.cashback_use }}" required
+                class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                placeholder="Keshbek summasi">
+        </label>
+        <div class="text-center">
+            <button type="button" onclick="document.querySelector('form').submit()"
+                class="text-purple-700 hover:text-white border border-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500 dark:focus:ring-purple-900 w-[280px] text-center">Yuborish</button>
+        </div>
+    </form>
+
+    </form>
 </div>
 {% endblock %}
