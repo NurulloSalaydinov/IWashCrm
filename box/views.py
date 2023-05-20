@@ -30,19 +30,6 @@ def get_today_income() -> Income:
     return income
 
 
-def get_today_income_box(token: str) -> Income:
-    try:
-        income = Income.objects.get(created_at__date=timezone.now().date(), box__token=token)
-    except Income.DoesNotExist as e:
-        print(f"Box does not exist {e}")
-        income = Income.objects.create(box=Box.objects.get(token=token))
-    except Income.MultipleObjectsReturned as e:
-        print(f"Box does not exist {e}")
-        income_list = list(Income.objects.filter(created_at__date=timezone.now().date(), box__token=token).order_by('-id'))
-        for i in range(0,income_list.count()):
-            income_list[i].delete()
-    return income
-
 
 def receive_money(request):
     token = request.GET.get('token', None)
@@ -76,9 +63,8 @@ def receive_money(request):
             today_income.amount += summ
             today_income.save()
             # today income box add
-            today_income_box = get_today_income_box(box.token)
-            today_income_box.amount += summ
-            today_income_box.save()
+            box.cash += summ
+            box.save()
             customer.save()
             return JsonResponse(response)
         # else
@@ -87,9 +73,8 @@ def receive_money(request):
         today_income.amount += summ
         today_income.save()
         # today income box add
-        today_income_box = get_today_income_box(box.token)
-        today_income_box.amount += summ
-        today_income_box.save()
+        box.cash += summ
+        box.save()
         # return response
         return JsonResponse(response)
     except Box.DoesNotExist as e:
