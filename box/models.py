@@ -35,7 +35,7 @@ class CashBack(models.Model):
 
 
 class Income(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField()
     amount = models.PositiveIntegerField(default=0)
     box = models.ForeignKey(Box, on_delete=models.SET_NULL, null=True, blank=True, related_name='income', related_query_name='income')
 
