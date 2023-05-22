@@ -38,7 +38,7 @@ def home_view(request):
     }
 
 
-    return render(request, 'index.html', context)
+    return render(request, 'main_com/index.html', context)
 
 def chart_box(request, token):
     box = Box.objects.get(token = token)
@@ -57,7 +57,7 @@ def chart_box(request, token):
         'date' : date,
         'value': value
     }
-    return render(request, 'charts.html', context)
+    return render(request, 'main_com/charts.html', context)
 
 def withdrop(request, token):
     box = Box.objects.get(token = token)
@@ -75,4 +75,4 @@ def withdrop(request, token):
     context = {
         'box': box
     }
-    return render(request, 'get-money.html', context)
+    return render(request, 'main_com/get-money.html', context)
