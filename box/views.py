@@ -94,4 +94,4 @@ def update_info(request):
     context = {
         'info': info,
     }
-    return render(request, 'update_info.html', context)
+    return render(request, 'main_com/update_info.html', context)

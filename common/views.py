@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
-from box.models import Box, Income,TakenMoney
+from box.models import Box, Income,TakenMoney, Customer
 from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required 
@@ -12,8 +12,15 @@ app_name = 'common'
 def home_view(request):
     boxes = Box.objects.prefetch_related('takemoney', 'income').all()
     incomes = Income.objects.filter(created_at__month = timezone.now().month)
+    total_income = Income.objects.filter(box=None).order_by('created_at')
     takemoneys = TakenMoney.objects.filter(created_at__month = timezone.now().month)
-    
+    month = ['','Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun', 'Iyul', 'Avgust', 'Sentabr', 'Oktabr','Noyabr' 'Dekabr']
+    value = []
+    date = []
+    for i in total_income:
+        date.append(f"{month[i.created_at.month]} {i.created_at.day}")
+        value.append(i.amount)
+
     sum_income = 0
     sum_takemoney = 0
     for income in incomes:
@@ -26,15 +33,18 @@ def home_view(request):
         'boxes': boxes,
         'incomes': sum_income,
         'takemoney': sum_takemoney,
-        'box_count': boxes.count()
+        'box_count': boxes.count(),
+        'customer_count': Customer.objects.count(),
+        'date': date,
+        'value': value,
     }
 
 
-    return render(request, 'index.html', context)
+    return render(request, 'main_com/index.html', context)
 
 def chart_box(request, token):
     box = Box.objects.get(token = token)
-    income = Income.objects.filter(box=box)
+    income = Income.objects.filter(box=box).order_by('created_at')
     month = ['','Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun', 'Iyul', 'Avgust', 'Sentabr', 'Oktabr','Noyabr' 'Dekabr']
     value = []
     date = []
@@ -49,7 +59,7 @@ def chart_box(request, token):
         'date' : date,
         'value': value
     }
-    return render(request, 'charts.html', context)
+    return render(request, 'main_com/charts.html', context)
 
 def withdrop(request, token):
     box = Box.objects.get(token = token)
@@ -67,4 +77,4 @@ def withdrop(request, token):
     context = {
         'box': box
     }
-    return render(request, 'get-money.html', context)
+    return render(request, 'main_com/get-money.html', context)
