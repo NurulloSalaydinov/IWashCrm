@@ -2,13 +2,16 @@ from django.urls import path, include
 from common.views import home_view, chart_box, withdrop
 from django.conf import settings
 from django.conf.urls.static import static
+from box.views import update_info
+
 
 
 app_name = 'common'
 urlpatterns = [
     path('', home_view, name='home'),
     path('box/<slug:token>/chart', chart_box, name='chart'),
-    path('box/<slug:token>/withdrop', withdrop, name='withdrop')
+    path('box/<slug:token>/withdrop', withdrop, name='withdrop'),
+     path('info-update/', update_info, name='update-info'),
 ]
 
 

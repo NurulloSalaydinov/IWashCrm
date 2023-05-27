@@ -3,9 +3,11 @@ from django.http import JsonResponse
 from box.models import Box, Income,TakenMoney
 from django.utils import timezone
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required 
 
 
 app_name = 'common'
+
 
 def home_view(request):
     boxes = Box.objects.prefetch_related('takemoney', 'income').all()
