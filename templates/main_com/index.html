@@ -81,23 +81,29 @@
     Qurilmalar
   </h2>
 
-  <div class="grid gap-6 mb-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 ">
+  <div class="grid gap-6 mb-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
 
     {% for box in boxes %}
-    <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-      <center>
+    <div class="flex flex-col items-center min-w-0 p-4 bg-[#212529] rounded-[25px] border-4 border-blue-300  shadow-xs dark:bg-gray-800">
+      <div class="monitor mt-4 bg-[#C5C7D3] w-[90%] p-[30px] rounded-lg shadow-xs dark:bg-gray-700 text-center">
+        <span class="number text-4xl text-[#FF0032] font-bold">{{box.cash}}</span>
         <br>
-        <h1 class="text-4xl text-green-500">{{box.title}}</h1>
-      </center>
+      </div>
       <br>
-      <h2 class="text-2xl ml-[30px] dark:text-white">Songi amallar</h2>
-      <ul class="m-5 text-2xl">
-        <li class="m-1 dark:text-white"><strong class="text-purple-600">Kunlik tushum:</strong>
-          <span class="number">{{box.income.last.amount}}</span>  </li>
-        <li class="m-1 dark:text-white"><strong class="text-purple-600">Pul yechildi:</strong>
-          <span class="number">{{box.takemoney.last.amount}}</span> </li>
-        <li class="m-1 dark:text-white"><strong class="text-purple-600">Qurilmadagi summa:</strong> <span class="number">{{box.cash}}</span> </li>
-      </ul>
+      <div class="flex content-between">
+        <button class="bg-[#94B8FF]  p-4 rounded-[50%] m-1 mx-2 border-[#fff] border-2"></button>
+        <button class="bg-[#94B8FF]  p-4 rounded-[50%] m-1 mx-2 border-[#fff] border-2"></button>
+        <button class="bg-[#94B8FF]  p-4 rounded-[50%] m-1 mx-2 border-[#fff] border-2"></button>
+        <button class="bg-[#94B8FF]  p-4 rounded-[50%] m-1 mx-2 border-[#fff] border-2"></button>
+        <button class="bg-[#FF0032]  p-4 rounded-[50%] m-1 mx-2 border-[#fff] border-2"></button>
+      </div>
+      <br>
+      <br>
+      <br>
+      <br>
+      <div class="w-[80%] text-start">
+        <i class="fa-light fa-nfc-signal text-[#fff] text-6xl"></i>
+      </div>
       <br>
       <div class="flex flex-row justify-between flex-wrap mb-8 space-y-4 md:flex-row md:items-end md:space-x-4">
         <a href="{% url 'common:chart' box.token %}"
@@ -124,6 +130,7 @@
   <div class="grid gap-6 mb-8 sm:grid-cols-1 md:grid-cols-2">
     <canvas id="line_c"></canvas>
   </div>
+
   <script>
      const lineConfig = {
   type: 'line',
